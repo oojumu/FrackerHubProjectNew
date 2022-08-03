@@ -33,7 +33,7 @@ namespace FrackerHub.Services.Implementations
         {
             _userItemRepo.Update(userItem);
             _userItemRepo.SaveChanges();
-            return false;
+            return true;
         }
 
         public void ApproveUserAsset(int Id)
@@ -76,6 +76,11 @@ namespace FrackerHub.Services.Implementations
         public void DeclineUserRegistration(string Id)
         {
             throw new NotImplementedException();
+        }
+
+        public  UserItem FindUserItemForApproval(int Id)
+        {
+             return _userItemRepo.Find(Id);
         }
 
         public IEnumerable<User> GetAllUsers()

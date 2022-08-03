@@ -14,6 +14,7 @@ namespace FrackerHub.Services.Interfaces
 
         Task <User> ApproveUserRegistration(string Id);
 
+        UserItem FindUserItemForApproval(int Id);
         void DeclineUserRegistration(string Id);
 
         void BlockUser(int Id);

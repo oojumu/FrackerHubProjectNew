@@ -107,6 +107,11 @@ namespace FrackerHub.Services.Implementations
             return _userItemRepo.GetAll().Where(item => item.UserLogin == email);
         }
 
+        public IEnumerable<UserItem> GetAllApprovedItemsForGalleryDisplay()
+        {           
+            return _userItemRepo.GetAll().Where(item => item.Status == 4);
+        }
+
         public IEnumerable<ItemType> GetItemTypes()
         {
             return _itemTypeRepo.GetAll();

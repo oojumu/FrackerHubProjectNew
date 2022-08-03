@@ -16,6 +16,7 @@ namespace FrackerHub.Services.Interfaces
 
         IEnumerable<UserItem> GetItemsByUserEmail(string email);
 
+        IEnumerable<UserItem> GetAllApprovedItemsForGalleryDisplay( );
 
         IEnumerable GetAllItemsUploaded();
         IEnumerable GetAllItemsByUser(string usrEmail);
