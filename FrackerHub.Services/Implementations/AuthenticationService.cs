@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace FrackerHub.Services.Implementations
 {
+    public enum NotificationType
+    {
+        Success, Error, Info
+    }
     public class AuthenticationService : IAuthenticationService
     {
         protected SignInManager<User> _signinManager;
@@ -58,25 +62,8 @@ namespace FrackerHub.Services.Implementations
 
         }
 
-        public bool CreateUser(User user, string password)
-        {
-            var result = _userManager.CreateAsync(user, password).Result;
-            
-
-            if (result.Succeeded)
-            {
-                string role = "User";
-
-                var res = _userManager.AddToRoleAsync(user,role).Result;
-                if (res.Succeeded)
-                {
-                    return true;
-
-                }
-            }
-            return false;
-                
-        }       
+        
+               
 
         public User GetUser(string userName)
         {
@@ -96,6 +83,38 @@ namespace FrackerHub.Services.Implementations
                 throw;
             }
           
+        }
+
+        //public string CreateUser(User user, string password)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        public string CreateUser(User user, string password)
+        {
+            var result = _userManager.CreateAsync(user, password).Result;
+
+            //result.
+            string response = null;// result.toString();
+
+            if (!result.Succeeded)
+            {
+                response = result.Errors.ToList()[0].Description.ToString();
+            }
+                
+            if (result.Succeeded)
+            {
+                string role = "User";
+
+                var res = _userManager.AddToRoleAsync(user, role).Result;
+                if (res.Succeeded)
+                {
+                    return "";
+
+                }
+            }
+            return response;// result[0].toString();
+
         }
 
         //public bool SignOut()

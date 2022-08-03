@@ -23,7 +23,9 @@ namespace FrackerHub.Services.Interfaces
         void RejectUserAsset(int Id);
 
         void GetTop5NewUploads();
+        IEnumerable<UserItem> GetItemsPendingApproval();
 
+        bool ApproveItemPendingApproval(UserItem userItem);
 
 
 

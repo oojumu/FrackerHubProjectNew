@@ -9,7 +9,7 @@ namespace FrackerHub.Services.Interfaces
     public interface IAuthenticationService
     {
         User AuthenticateUser(string userName, string password);
-        bool CreateUser(User user, string password);
+        String CreateUser(User user, string password);
         //bool SignOut();
 
         Task<bool> SignOut();

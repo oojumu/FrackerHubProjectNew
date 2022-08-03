@@ -14,17 +14,28 @@ namespace FrackerHub.Services.Implementations
         private readonly IRepository<Item> _itemRepo;
         private readonly IRepository<Category> _categoryRepo;
         private readonly IRepository<ItemType> _itemTypeRepo;
+        private readonly IRepository<UserItem> _userItemRepo;
+
         protected UserManager<User> _userManager;
 //        protected UserManager<User> _userManager;
 
 
-        public AdminService(UserManager<User> userManager, IRepository<Item> itemRepo, IRepository<Category> categoryRepo, IRepository<ItemType> itemTypeRepo)
+        public AdminService(UserManager<User> userManager, IRepository<UserItem> userItemRepo, IRepository<Item> itemRepo, IRepository<Category> categoryRepo, IRepository<ItemType> itemTypeRepo)
         {
             _itemRepo = itemRepo;
             _categoryRepo = categoryRepo;
             _itemTypeRepo = itemTypeRepo;
             _userManager = userManager;
+            _userItemRepo = userItemRepo;
         }
+
+        public bool ApproveItemPendingApproval(UserItem userItem)
+        {
+            _userItemRepo.Update(userItem);
+            _userItemRepo.SaveChanges();
+            return false;
+        }
+
         public void ApproveUserAsset(int Id)
         {
             throw new NotImplementedException();
@@ -72,6 +83,21 @@ namespace FrackerHub.Services.Implementations
             return _userManager.Users;
         }
 
+        public IEnumerable<UserItem> GetItemsPendingApproval()
+        {
+            return _userItemRepo.GetAll();
+        }
+
+        //public UserItem GetItemsPendingApproval()
+        //{
+        //        return _userItemRepo.GetAll();
+        //}
+
+        //public IEnumerable<UserItem> GetItemsPendingApproval()
+        //{
+        //    return _itemRepo.GetAll();
+        //}
+
         public void GetTop5NewUploads(Item item)
         {
             _itemRepo.Add(item);
@@ -82,8 +108,6 @@ namespace FrackerHub.Services.Implementations
         {
             throw new NotImplementedException();
         }
-
-       
 
         public void GetUsers()
         {

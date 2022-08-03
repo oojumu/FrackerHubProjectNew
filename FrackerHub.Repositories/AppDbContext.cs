@@ -25,7 +25,9 @@ namespace FrackerHub.Repositories
         public DbSet<Item> Items { get; set; }
         public DbSet<ItemType> ItemTypes { get; set; }
         public DbSet<UserItem> UserItems { get; set; }
+        public DbSet<FrackActivity> FrackActivities { get; set; }
 
+        //public DbSet<Status_definition> Status_definitions { get; set; }
 
 
         //public DbSet<Status_definitions> Status_definition { get; set; }
