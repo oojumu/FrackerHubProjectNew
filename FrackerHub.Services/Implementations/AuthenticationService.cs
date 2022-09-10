@@ -57,7 +57,6 @@ namespace FrackerHub.Services.Implementations
                 return user;
 
             }
-            //throw new NotImplementedException();
             return null;
 
         }

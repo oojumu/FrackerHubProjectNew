@@ -8,6 +8,8 @@ namespace FrackerHub.Services.Interfaces
 {
     public interface ICatalogService
     {
+        UserItem GetItemDetailsById(int Id);
+
         IEnumerable<Category> GetCategories();
 
         IEnumerable<ItemType> GetItemTypes();
@@ -16,7 +18,7 @@ namespace FrackerHub.Services.Interfaces
 
         IEnumerable<UserItem> GetItemsByUserEmail(string email);
 
-        IEnumerable<UserItem> GetAllApprovedItemsForGalleryDisplay( );
+        IEnumerable<UserItem> GetAllApprovedItemsForGalleryDisplay();
 
         IEnumerable GetAllItemsUploaded();
         IEnumerable GetAllItemsByUser(string usrEmail);
@@ -31,6 +33,8 @@ namespace FrackerHub.Services.Interfaces
         void AddAsset();
         void UpdateAsset();
         void DeleteAsset();
+
+
 
     }
 }

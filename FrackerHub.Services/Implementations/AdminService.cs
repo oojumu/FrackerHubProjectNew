@@ -1,4 +1,5 @@
 ﻿using FrackerHub.Entities;
+using FrackerHub.Repositories;
 using FrackerHub.Repositories.Interfaces;
 using FrackerHub.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -15,18 +16,28 @@ namespace FrackerHub.Services.Implementations
         private readonly IRepository<Category> _categoryRepo;
         private readonly IRepository<ItemType> _itemTypeRepo;
         private readonly IRepository<UserItem> _userItemRepo;
+        private readonly IRepository<UserItem> _frackedItemRepo;
 
         protected UserManager<User> _userManager;
 //        protected UserManager<User> _userManager;
 
+        //private AppDbContext appContext
+        //{
+        //    get
+        //    {
 
-        public AdminService(UserManager<User> userManager, IRepository<UserItem> userItemRepo, IRepository<Item> itemRepo, IRepository<Category> categoryRepo, IRepository<ItemType> itemTypeRepo)
+        //        return _dbContext as AppDbContext;
+        //    }
+
+        //}
+        public AdminService(UserManager<User> userManager, IRepository<UserItem> frackedItemRepo, IRepository<UserItem> userItemRepo, IRepository<Item> itemRepo, IRepository<Category> categoryRepo, IRepository<ItemType> itemTypeRepo)
         {
             _itemRepo = itemRepo;
             _categoryRepo = categoryRepo;
             _itemTypeRepo = itemTypeRepo;
             _userManager = userManager;
             _userItemRepo = userItemRepo;
+            _frackedItemRepo = frackedItemRepo;
         }
 
         public bool ApproveItemPendingApproval(UserItem userItem)
@@ -60,6 +71,8 @@ namespace FrackerHub.Services.Implementations
                 await _userManager.UpdateAsync(result);
                 return result;
             }
+
+            //_dbcontext
             return result;
         }
 
@@ -80,7 +93,41 @@ namespace FrackerHub.Services.Implementations
 
         public  UserItem FindUserItemForApproval(int Id)
         {
-             return _userItemRepo.Find(Id);
+            var sx =   _userItemRepo.Find(Id);
+            UserItem dx = new UserItem
+            {
+                Id = sx.Id,
+                //Name = userItem.Name,
+                //UnitPrice = userItem.UnitPrice,
+                //Description = userItem.Description,
+                //ImageUrl = userItem.ImageUrl,
+                Status = 4
+            };
+
+            return _userItemRepo.Find(Id);
+        }
+
+        public Task<UserItem> FindUserItemForApproval2(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool FindUserItemForApprovalNew(int Id)
+        {
+            bool flag = false;
+            var sx = _userItemRepo.Find(Id);
+            UserItem dx = new UserItem
+            {
+                Id = sx.Id,
+                //Name = userItem.Name,
+                //UnitPrice = userItem.UnitPrice,
+                //Description = userItem.Description,
+                //ImageUrl = userItem.ImageUrl,
+                Status = 4
+            };
+
+            _userItemRepo.Update(dx);
+            return flag;
         }
 
         public IEnumerable<User> GetAllUsers()
@@ -88,9 +135,22 @@ namespace FrackerHub.Services.Implementations
             return _userManager.Users;
         }
 
+        public int GetAllUsersCount()
+        {
+            return 1;// _userManager.Users;
+        }
+
         public IEnumerable<UserItem> GetItemsPendingApproval()
         {
+
             return _userItemRepo.GetAll();
+        }
+
+        public async Task<string> GetPhoneNumberofUserAsync(string email)
+        {
+            throw new NotImplementedException();
+            //User result = await _userManager.FindByIdAsync(Id);
+
         }
 
         //public UserItem GetItemsPendingApproval()
@@ -112,6 +172,21 @@ namespace FrackerHub.Services.Implementations
         public void GetTop5NewUploads()
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<UserItem> GetTotalUploadedBorrowedItemsCount()
+        {
+            return _frackedItemRepo.GetAll();
+        }
+
+        public IEnumerable<UserItem> GetTotalUploadedItemsApprovedCount()
+        {
+            return _userItemRepo.GetAll();
+        }
+
+        public IEnumerable<UserItem> GetTotalUploadedItemsCount()
+        {
+            return _userItemRepo.GetAll();
         }
 
         public void GetUsers()

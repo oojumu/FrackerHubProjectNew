@@ -102,6 +102,12 @@ namespace FrackerHub.Services.Implementations
             return _itemRepo.GetAll().OrderBy(item => item.CategoryId).ThenBy(item => item.itemTypeId);
         }
 
+
+        public UserItem GetItemDetailsById(int Id)
+        {
+            return _userItemRepo.Find(Id);
+        }
+
         public IEnumerable<UserItem> GetItemsByUserEmail(string email)
         {
             return _userItemRepo.GetAll().Where(item => item.UserLogin == email);

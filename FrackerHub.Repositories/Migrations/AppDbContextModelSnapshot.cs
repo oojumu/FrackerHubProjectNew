@@ -43,14 +43,14 @@ namespace FrackerHub.Repositories.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("FrackerHub.Entities.FrackActivity", b =>
+            modelBuilder.Entity("FrackerHub.Entities.FrackHubActivity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("ActualReturnDate")
+                    b.Property<DateTime?>("ActualReturnDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ApproverId")
@@ -58,6 +58,9 @@ namespace FrackerHub.Repositories.Migrations
 
                     b.Property<int>("ApproverTime")
                         .HasColumnType("int");
+
+                    b.Property<string>("BorrowerEmail")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("BorrowerId")
                         .HasColumnType("int");
@@ -71,8 +74,11 @@ namespace FrackerHub.Repositories.Migrations
                     b.Property<string>("ItemName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LenderId")
-                        .HasColumnType("int");
+                    b.Property<string>("LenderId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("OperationType")
                         .HasColumnType("int");
@@ -91,7 +97,7 @@ namespace FrackerHub.Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FrackActivities");
+                    b.ToTable("FrackHubActivity");
                 });
 
             modelBuilder.Entity("FrackerHub.Entities.Item", b =>
@@ -143,6 +149,24 @@ namespace FrackerHub.Repositories.Migrations
                     b.ToTable("ItemTypes");
                 });
 
+            modelBuilder.Entity("FrackerHub.Entities.OperationType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OperationTypes");
+                });
+
             modelBuilder.Entity("FrackerHub.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -184,6 +208,9 @@ namespace FrackerHub.Repositories.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<double>("AccountBalance")
+                        .HasColumnType("float");
 
                     b.Property<int>("Approved")
                         .HasColumnType("int");
@@ -242,6 +269,9 @@ namespace FrackerHub.Repositories.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<string>("userImage")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -265,17 +295,26 @@ namespace FrackerHub.Repositories.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("EndDateOfBorrow")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("StartDateOfBorrow")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("UnitPrice")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("UploadTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserLogin")
                         .HasColumnType("nvarchar(max)");

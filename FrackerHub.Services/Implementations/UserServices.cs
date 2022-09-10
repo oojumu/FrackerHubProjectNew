@@ -15,19 +15,21 @@ namespace FrackerHub.Services.Implementations
         private readonly IRepository<Category> _categoryRepo;
         private readonly IRepository<ItemType> _itemTypeRepo;
         private readonly IRepository<UserItem> _userItemRepo;
+        private readonly IRepository<FrackHubActivity> _userfrackRequest;
+
         protected UserManager<User> _userManager;
 
 
 //        protected UserManager<User> _userManager;
 
-        public UserServices(UserManager<User> userManager, IRepository<Item> itemRepo, IRepository<Category> categoryRepo, IRepository<ItemType> itemTypeRepo, IRepository<UserItem> userItemRepo)
+        public UserServices(IRepository<FrackHubActivity> userfrackRequest, UserManager<User> userManager, IRepository<Item> itemRepo, IRepository<Category> categoryRepo, IRepository<ItemType> itemTypeRepo, IRepository<UserItem> userItemRepo)
         {
             _itemRepo = itemRepo;
             _categoryRepo = categoryRepo;
             _itemTypeRepo = itemTypeRepo;
             _userManager = userManager;
             _userItemRepo = userItemRepo;
-
+            _userfrackRequest = userfrackRequest;
         }
 
         public void AddAnItem(UserItem userItem)
@@ -108,6 +110,35 @@ namespace FrackerHub.Services.Implementations
         {
             return _userItemRepo.GetAll();
             //return UserItem;
+        }
+
+        public void AddUserItem(UserItem usritem)
+        {
+            _userItemRepo.Add(usritem);
+            _userItemRepo.SaveChanges();
+        }
+
+        public int AddBorrowedItem(FrackHubActivity usrRqst)
+        {
+            _userfrackRequest.Add(usrRqst);
+            return _userItemRepo.SaveChanges();
+        }
+
+        public int AddBorrowedItem(UserItem usrRqst)
+        {
+            _userItemRepo.Add(usrRqst);
+            return _userItemRepo.SaveChanges();
+        }
+
+        public IEnumerable<FrackHubActivity> GetUserBorrowRqstList()
+        {
+            return _userfrackRequest.GetAll();
+        }
+
+        public FrackHubActivity GetFrackedItem(int Id)
+        {
+            return _userfrackRequest.Find(Id);
+            //throw new NotImplementedException();
         }
     }
 }

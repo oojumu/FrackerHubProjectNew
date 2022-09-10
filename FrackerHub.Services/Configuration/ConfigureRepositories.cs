@@ -34,6 +34,8 @@ namespace FrackerHub.Services.Configuration
             services.AddTransient<IRepository<ItemType>, Repository<ItemType>>();
             services.AddTransient<IRepository<Asset>, Repository<Asset>>();
             services.AddTransient<IRepository<UserItem>, Repository<UserItem>>();
+            services.AddTransient<IRepository<FrackHubActivity>, Repository<FrackHubActivity>>();
+
 
 
         }

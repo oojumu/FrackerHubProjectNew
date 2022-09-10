@@ -12,9 +12,23 @@ namespace FrackerHub.Services.Interfaces
         void GetUser(int Id);
         IEnumerable<User> GetAllUsers();
 
-        Task <User> ApproveUserRegistration(string Id);
+        int GetAllUsersCount();
+
+        IEnumerable<UserItem> GetTotalUploadedItemsCount();
+
+        IEnumerable<UserItem> GetTotalUploadedItemsApprovedCount();
+
+        IEnumerable<UserItem> GetTotalUploadedBorrowedItemsCount();
+
+
+        Task<User> ApproveUserRegistration(string Id);
 
         UserItem FindUserItemForApproval(int Id);
+
+        Task<UserItem> FindUserItemForApproval2(int Id);
+
+        bool FindUserItemForApprovalNew(int Id);
+
         void DeclineUserRegistration(string Id);
 
         void BlockUser(int Id);
@@ -27,6 +41,8 @@ namespace FrackerHub.Services.Interfaces
         IEnumerable<UserItem> GetItemsPendingApproval();
 
         bool ApproveItemPendingApproval(UserItem userItem);
+
+        Task <string> GetPhoneNumberofUserAsync(string email);
 
 
 

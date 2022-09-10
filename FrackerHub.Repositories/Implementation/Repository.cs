@@ -66,8 +66,10 @@ namespace FrackerHub.Repositories.Implementation
 
         public void Update(TEntity entity)
         {
-            _dbContext.Set<TEntity>().Update(entity);
+            //_dbContext.Set<TEntity>().Update(entity);
 
+            _dbContext.Set<TEntity>().AsNoTracking();
+            _dbContext.Update(entity);
         }
     }
 }

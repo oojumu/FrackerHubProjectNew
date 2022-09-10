@@ -37,5 +37,16 @@ namespace FrackerHub.Services.Interfaces
 
         UserItem GetItem(int Id);
 
+        int AddBorrowedItem(UserItem usrItem);
+
+        int AddBorrowedItem(FrackHubActivity usrRqst);
+
+        IEnumerable <FrackHubActivity> GetUserBorrowRqstList();
+
+        FrackHubActivity GetFrackedItem(int Id);
+
+
+        //  IEnumerable<FrackHubActivity> GetUserBorrowRqstList();
+
     }
 }
